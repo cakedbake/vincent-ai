@@ -327,7 +327,20 @@ ${(process.env.VISION_MODEL && process.env.VISION_MODEL !== process.env.MODEL) ?
 
   if (reply.content === '') { return }
 
-  reply.content = reply.content.replaceAll(/\bregex\b/gi, "REGRET");
+  reply.content = reply.content.replaceAll(/\bregex\b/gi, (match) => {
+    let replacement = "REGRET";
+    return replacement
+        .split("")
+        .map((char, index) => {
+            if (index < match.length && match[index] === match[index].toUpperCase()) {
+                return char.toUpperCase();
+            } else {
+                return char.toLowerCase();
+            }
+        })
+        .join("");
+});
+
 
   // fs.writeFileSync('/tmp/dump.json', JSON.stringify(messages, null, 4))
 
