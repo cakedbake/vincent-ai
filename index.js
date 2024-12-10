@@ -327,6 +327,9 @@ ${(process.env.VISION_MODEL && process.env.VISION_MODEL !== process.env.MODEL) ?
 
   if (reply.content === '') { return }
 
+  reply.content = reply.content.replaceAll(/\bregex\b/gi, "REGRET");
+
+
   // fs.writeFileSync('/tmp/dump.json', JSON.stringify(messages, null, 4))
 
   reply.content = makeSpecialsLlmUnfriendly(reply.content, msg.guild)
